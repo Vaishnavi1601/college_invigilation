@@ -1,0 +1,118 @@
+<%- include('../includes/admin/head.ejs') %>
+
+<%- include('../includes/admin/navigation.ejs') %>
+
+</header>
+<br><br><br>
+
+<section class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">Admin Dashboard / View All Student</li>
+    </ol>
+  </nav>
+</section>
+
+<section>
+  <div class="container">
+    <div class="card mb-4">
+      <div class="card-header">
+        <i class="fa fa-graduation-cap mr-1"></i>All Students
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <% if (students.length > 0) { %>
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>SEM</th>
+                <th>Branch</th>
+                <th>USN</th>
+                <th>Action</th> 
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Name</th>
+                <th>SEM</th>
+                <th>Branch</th>
+                <th>usn</th>
+                <th>Action</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              <% for (let std of students) { %>
+              <tr>
+                <td><%= std.name %></td>
+                <td><%= std.sem %></td>
+                <td><%= std.branch %></td>
+                <td><%= std.usn %></td>
+                <td>
+                  <a href="/admin/delete-student/<%= std._id %>">
+                  <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                  </a>
+                  
+                  <button class="btn btn-sm btn-info" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"><i class="fa fa-wrench"></i></button>
+                  <!-- Modal -->
+                  <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                      <!-- Modal content-->
+                      <form action="/admin/edit-student" method="post">
+                      <div class="modal-content">
+                        <div class="modal-header text-left">
+                          <h4 class="modal-title text-left">Edit Student Details</h4>
+                        </div>
+                        <div class="modal-body">    
+                          <input type="hidden" name="_id" placeholder="Please Enter Name" value="<%= std._id %>" >        
+                          <label>Name:</label>
+                          <input type="text" name="name" placeholder="Please Enter Name" value="<%= std.name %>" class="form-control" >
+                          <label>Email:</label>
+                          <input type="email" name="email" placeholder="Please Enter email" value="<%= std.email %>" class="form-control">
+                          <label>Sem:</label>
+                          <select class="form-control" name="sem" >
+                            <option value="2">2</option>
+                            <option value="4">4</option>
+                            <option value="6">6</option>
+                            <option value="8">8</option>
+                          </select>
+                          <label>Branch:</label>
+                          <select class="form-control" name="branch">
+                            <option value="ISE">ISE</option>
+                            <option value="CSE">CSE</option>
+                            <option value="ECE">ECE</option>
+                            <option value="EEE">EEE</option>
+                          </select>
+                          <label>USN:</label>
+                          <input class="form-control" type="text" name="usn" placeholder="Enter new USN" value="<%= std.usn %>">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-success">Update</button>
+                        </div>
+                      </div>
+                    </form>
+
+                    </div>
+                  </div>
+                </td>                                             
+              </tr> 
+              <% } %>
+             
+            </tbody>
+          </table>
+         <% } else { %>
+              <h1>No Students Found!</h1>
+            <% } %>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<br><br><br>
+
+<%- include('../includes/footer.ejs') %>
+
+<%- include('../includes/admin/end.ejs') %>

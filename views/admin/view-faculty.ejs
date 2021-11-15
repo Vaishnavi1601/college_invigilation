@@ -1,0 +1,101 @@
+<%- include('../includes/admin/head.ejs') %>
+
+
+<%- include('../includes/admin/navigation.ejs') %>
+</header>
+
+<br><br><br>
+
+<section class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">
+        Admin Dashboard / View faculty
+      </li>
+    </ol>
+  </nav>
+</section>
+
+<section>
+  <div class="container">
+    <div class="card mb-4">
+      <div class="card-header"><i class="fa fa-book mr-1"></i>
+        All Faculties
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <% if(faculties.length > 0) { %>
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>email</th>
+                <th>action</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Name</th>
+                <th>email</th>
+                <th>action</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              <% for (let faculty of faculties) { %>
+              <tr>
+                <td><%= faculty.name %></td>
+                <td><%= faculty.email%></td>
+                <td>
+                  <a href="/admin/delete-faculty/<%= faculty._id %>">
+                  <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                  </a>  
+                  <button class="btn btn-sm btn-info" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"><i class="fa fa-wrench"></i></button>
+                
+                     <!-- Modal -->
+                  <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                      <!-- Modal content-->
+                      <form action="/admin/edit-faculty" method="post">
+                        <div class="modal-content">
+                          <div class="modal-header text-left">
+                            <h4 class="modal-title text-left">Edit Faculty Details</h4>
+                          </div>
+                          <div class="modal-body">
+                            <input type="hidden" name="_id" placeholder="Please Enter Name" value="<%= faculty._id  %>" class="form-control">
+
+                            <label>Name:</label>
+                            <input type="text" name="name" placeholder="Please Enter Name" value="<%= faculty.name %>" class="form-control">
+                            <label>Email:</label>
+                            <input type="email" name="email" placeholder="Please Enter Email" value="<%= faculty.email %>" class="form-control">
+                            <br>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-success">Update</button>
+                            </div>
+                          </div>
+                        </div>
+                      </form> 
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+
+          </table>
+          <% } else { %>
+            <h1>No Faculty Found</h1>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+ 
+  </div>        
+</section>
+
+<br><br><br>
+
+<%- include('../includes/footer.ejs') %>
+
+<%- include('../includes/admin/end.ejs') %>
