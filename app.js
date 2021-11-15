@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const multer = require("multer");
 
+const PORT = process.env.PORT || 9000;
 const app = express();
 
 const adminRoute = require("./routes/admin");
@@ -28,7 +29,7 @@ mongoose
     'mongodb+srv://vaishnavi123:vaishnavi123@cluster0.7veks.mongodb.net/college?retryWrites=true&w=majority'
   )
   .then((result) => {
-    app.listen(3000);
+    app.listen(PORT);
     console.log('connected');
   })
   .catch(err =>{
