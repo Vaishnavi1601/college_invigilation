@@ -1,8 +1,8 @@
 const express = require('express');
-
-const adminController = require('../controllers/admin');
-
 const router = express.Router();
+const adminController = require('../controllers/admin');
+const {isAuthAdmin} = require("../middlewares/isAuth");
+
 const multer = require("multer");
 
 const fileStorage = multer.diskStorage({
@@ -37,7 +37,7 @@ const cAttendence = multer({ storage: fileStorage }).single("file");
 const sAttendence = multer({ storage: fileStorage1 }).single("shortage-attendence");
 const uExam = multer({ storage: fileStorage2 }).single("university-exam");
 
-router.get('/', (req, res, next) => res.render('admin/index'))
+router.get('/',isAuthAdmin , (req, res, next) => res.render('admin/index'))
 
 router.get('/profile', adminController.getProfile);
 router.post("/profile",adminController.postProfile);

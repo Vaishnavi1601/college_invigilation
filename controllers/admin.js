@@ -5,6 +5,7 @@ const Attendence = require("../model/clear-attendence");
 const ShoratgeAttendence = require("../model/shoratge-attendence");
 const UniversityExam = require("../model/universityExam");
 const Admin = require("../model/profile");
+const bcryptjs = require("bcrypt");
 
 exports.getAddStudent = (req, res, next) => {
   res.render("admin/add-student", {
@@ -22,11 +23,11 @@ exports.postEditStudent = (req, res, next) => {
   const studentId = req.body._id;
   Student.findById(studentId)
     .then((student) => {
-      student.name = updatedName,
-      student.email = updatedEmail,
-      student.usn = updatedUsn,
-      student.branch = updatedBranch,
-      student.sem = updatedSem;
+      (student.name = updatedName),
+        (student.email = updatedEmail),
+        (student.usn = updatedUsn),
+        (student.branch = updatedBranch),
+        (student.sem = updatedSem);
       return student.save();
     })
     .then((result) => {
@@ -45,19 +46,25 @@ exports.postAddStudent = (req, res, next) => {
   const branch = req.body.branch;
   const sem = req.body.sem;
 
-  const student = new Student({
-    name: name,
-    email: email,
-    password: password,
-    usn: usn,
-    branch: branch,
-    sem: sem,
-  });
-
-  student
-    .save()
-    .then((result) => {
-      res.redirect("/admin/view-student");
+  Student.findOne({ email: email })
+    .then((userDoc) => {
+      if (userDoc) {
+        return res.redirect("admin/add-student");
+      }
+      return bcryptjs.hash(password, 12);
+    })
+    .then((hashedPassword) => {
+      const student = new Student({
+        name: name,
+        email: email,
+        password: hashedPassword,
+        usn: usn,
+        branch: branch,
+        sem: sem,
+      });
+      student.save().then((result) => {
+        res.redirect("/admin/view-student");
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -128,15 +135,23 @@ exports.postAddFaculty = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  const faculty = new Faculty({
-    name: name,
-    email: email,
-    password: password,
-  });
-  faculty
-    .save()
-    .then((result) => {
-      res.redirect("/admin/add-faculty");
+  Faculty.findOne({ email: email })
+    .then((userDoc) => {
+      if (userDoc) {
+        console.log(userDoc);
+        return res.redirect("/admin/add-faculty");
+      }
+      return bcryptjs.hash(password, 12);
+    })
+    .then((hashedPassword) => {
+      const faculty = new Faculty({
+        name: name,
+        email: email,
+        password: hashedPassword,
+      });
+      faculty.save().then((result) => {
+        res.redirect("/admin/view-faculty");
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -357,16 +372,23 @@ exports.postProfile = (req, res, next) => {
   const name = req.body.name;
   const email = req.body.email;
   const password = req.body.password;
+  Admin.findOne({ email: email })
+    .then((userDoc) => {
+      if (userDoc) {
+        return res.redirect("admin/profile");
+      }
 
-  const profile = new Admin({
-    name: name,
-    email: email,
-    password: password,
-  });
-  profile
-    .save()
-    .then((result) => {
-      res.redirect("/admin/profile");
+      return bcryptjs.hash(password, 12);
+    })
+    .then((hashedPassword) => {
+      const profile = new Admin({
+        name: name,
+        email: email,
+        password: hashedPassword,
+      });
+      profile.save().then((result) => {
+        res.redirect("/admin/profile");
+      });
     })
     .catch((err) => {
       console.log(err);

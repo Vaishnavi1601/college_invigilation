@@ -23,20 +23,28 @@
         <div class="col-md-6 border">
           <br>
           <h4>Clear Student's Result</h4>
+        <% if(clearAttendence.length > 0) { %>
+
           <table class="table table-bordered table-striped table-sm">
             <tr>
               <th>BRANCH </th>
               <th>SEM</th>
               <th>Action</th>
             </tr>
+          <% for (let attendence of clearAttendence) { %>
+
             <tr>
-              <td>CSE</td>
-              <TD>2</TD>
+              <td><%= attendence.branch %></td>
+              <td><%= attendence.sem %></td>
               <td>
                 <button class="btn btn-primary btn-sm">Download <i class="fa fa-cloud-download"></i></button>
               </td>
             </tr>
+          <% } %>
+
           </table>
+          <% } %>
+
       </div>
     </div> <!-- // row -->
   </div>
