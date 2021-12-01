@@ -37,7 +37,7 @@
               <td><%= attendence.branch %></td>
               <td><%= attendence.sem %></td>
               <td>
-                <button class="btn btn-primary btn-sm">Download <i class="fa fa-cloud-download"></i></button>
+                <button class="btn btn-primary btn-sm"> <a href="/faculty/clear-attendence/<%= attendence._id %>"> Download </a><i class="fa fa-cloud-download"></i></button>
               </td>
             </tr>
           <% } %>

@@ -36,7 +36,7 @@
             <td><%= sAttendence.branch%></td>
             <TD><%= sAttendence.sem%></TD>
             <td>
-                <button class="btn btn-primary btn-sm">Download <i class="fa fa-cloud-download"></i></button>
+                <button class="btn btn-primary btn-sm"><a href="/student/shortage-attendence/<%= sAttendence._id %>">Download</a><i class="fa fa-cloud-download"></i></button>
             </td>
           </tr>
         <% } %>
@@ -50,8 +50,6 @@
 </section>
 
 <br><br><br>
-
-
 
 <%- include('../includes/footer.ejs') %>
 
