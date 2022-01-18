@@ -360,6 +360,7 @@ exports.postDeleteUniversityExam = (req, res, next) => {
 
 exports.getProfile = (req, res, next) => {
   Admin.find().then((admins) => {
+    console.log(362, admins);
     res.render("admin/profile", {
       pageTitle: "Profile",
       path: "/admin/profile",
@@ -396,8 +397,8 @@ exports.postProfile = (req, res, next) => {
 };
 
 exports.postDeleteAdmin = (req, res, next) => {
-  const adminId = req.params.admin_id;
-  console.log();
+  const adminId = req.params.admins_id;
+  console.log(400, adminId);
   Admin.findByIdAndRemove(adminId)
     .then(() => {
       res.redirect("/admin/profile");

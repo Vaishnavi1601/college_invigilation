@@ -37,11 +37,11 @@ const cAttendence = multer({ storage: fileStorage }).single("file");
 const sAttendence = multer({ storage: fileStorage1 }).single("shortage-attendence");
 const uExam = multer({ storage: fileStorage2 }).single("university-exam");
 
-router.get('/',isAuthAdmin , (req, res, next) => res.render('admin/index'))
-
+router.get("/profile/delete-admin/:admins_id",isAuthAdmin, adminController.postDeleteAdmin);
 router.get('/profile',isAuthAdmin, adminController.getProfile);
 router.post("/profile",isAuthAdmin,adminController.postProfile);
-router.get("/profile/delete-admin/:admin_id",isAuthAdmin, adminController.postDeleteAdmin);
+
+router.get('/',isAuthAdmin , (req, res, next) => res.render('admin/index'))
 
 router.get('/add-student',isAuthAdmin, adminController.getAddStudent);
 router.post('/add-student',isAuthAdmin, adminController.postAddStudent);

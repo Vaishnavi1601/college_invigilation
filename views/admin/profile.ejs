@@ -66,7 +66,7 @@
           <td><%= i %></td>
           <td><%= admins[i-1].name %></td>
           <td>
-            <a href="/admin/profile/delete-admin/<%= admins._id %>">
+            <a href="/admin/profile/delete-admin/<%=admins[i-1]._id %>">
             <button class="btn btn-danger">Delete <span class="fa fa-trash"></span></button></td>
             </a>
           </tr>
