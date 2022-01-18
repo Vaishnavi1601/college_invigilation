@@ -44,10 +44,10 @@ exports.postLoginAdmin = (req, res, next) => {
 exports.postFaculty = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
-  console.log(43,email);
+  console.log(43, email);
 
   Faculty.findOne({ email: email }).then((user) => {
-    console.log(45,user);
+    console.log(45, user);
     if (!user) {
       return;
     }
@@ -65,20 +65,20 @@ exports.postFaculty = (req, res, next) => {
         console.log(26, err);
         if (!err) {
           return res.redirect("/faculty");
-        }s
+        }
+        s;
       });
     });
   });
 };
 
-
 exports.postStudent = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
-  console.log(43,email);
+  console.log(43, email);
 
   Student.findOne({ email: email }).then((user) => {
-    console.log(45,user);
+    console.log(45, user);
     if (!user) {
       return;
     }

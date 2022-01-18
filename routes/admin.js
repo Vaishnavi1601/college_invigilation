@@ -78,5 +78,7 @@ router.get('/university-exam',isAuthAdmin, adminController.getUniversityExam );
 router.post('/university-exam',isAuthAdmin, uExam , adminController.postUniversityExam );
 router.get('/university-exam/:university_id',isAuthAdmin, adminController.postDeleteUniversityExam );
 
+router.get('/logout',isAuthAdmin,adminController.adminLogout)
+
 module.exports = router;
 

@@ -101,3 +101,13 @@ exports.getDownloadShortageAttendence = (req,res,next) => {
     console.log(err);
   })
 }
+
+exports.studentLogout = (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    res.redirect("/");
+  });
+};

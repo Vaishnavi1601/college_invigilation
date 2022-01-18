@@ -34,7 +34,6 @@ app.use(
   session({ secret: "secretkey", resave: false, saveUninitialized: false, store:store })
 );
 
-app.use("/", homeRoute);
 app.use("/admin", adminRoute);
 app.use("/faculty", facultyRoute);
 app.use("/student", studentRoute);

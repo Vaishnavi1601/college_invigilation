@@ -11,6 +11,7 @@ router.get('/ia-marks', isAuthStudent, (req, res, next) => res.render('student/i
 router.get('/profile',isAuthStudent,  (req, res, next) => res.render('student/profile',{pageTitle: 'Profile'}) )
 router.get('/shortage-attendence',isAuthStudent, studentController.getShortageAttendence )
 router.get('/shortage-attendence/:shortageAttendence_id',isAuthStudent, studentController.getDownloadShortageAttendence )
+router.get("/logout", isAuthStudent ,studentController.studentLogout)
 
 module.exports = router;
 

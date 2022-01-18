@@ -404,3 +404,13 @@ exports.postDeleteAdmin = (req, res, next) => {
     })
     .catch((err) => console.log(err));
 };
+
+exports.adminLogout = (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    res.redirect("/");
+  });
+};

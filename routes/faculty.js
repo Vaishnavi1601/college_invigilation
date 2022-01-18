@@ -19,4 +19,5 @@ router.get("/profile",isAuthFaculty, (req, res, next) =>
 router.get("/shortage-attendence",isAuthFaculty, facultyController.getShortageAttendence);
 router.get("/shortage-attendence/:shortageAttendence_id",isAuthFaculty, facultyController.getDownloadShortageAttendence);
 
+router.get("/logout", isAuthFaculty ,facultyController.facultyLogout)
 module.exports = router;
